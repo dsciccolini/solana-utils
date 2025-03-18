@@ -13,28 +13,24 @@ def get_rpc_url(cluster):
     }
     return rpc_mapping.get(cluster, [])
 
-def get_addresses(url):
-    """Retrieve the public addresses from keypair files."""
-    validator_keypair = os.path.expanduser("~/validator-keypair.json")
-    vote_keypair = os.path.expanduser("~/vote-account-keypair.json")
-
+def get_addresses(url, validator_address):
+    """Retrieve the public addresses from the provided validator address."""
     try:
-        validator_address = subprocess.check_output(
-            ["solana", "address", "--url", url, "-k", validator_keypair], text=True).strip()
-        vote_address = subprocess.check_output(
-            ["solana", "address", "--url", url, "-k", vote_keypair], text=True).strip()
-        return validator_address, vote_address
+        address = subprocess.check_output(
+            ["solana", "address", "--url", url, "-k", validator_address], text=True).strip()
+        return address
     except subprocess.CalledProcessError:
         print("Error: Unable to fetch keypair addresses.")
         sys.exit(1)
 
 def main():
-    if len(sys.argv) < 3:
-        print("Usage: python3 solana-utils.py <um|ut> <command>")
+    if len(sys.argv) < 4:
+        print("Usage: python3 solana-utils.py <um|ut> <validator_address> <command>")
         sys.exit(1)
 
     cluster = sys.argv[1]
-    command = sys.argv[2]
+    validator_address = sys.argv[2]
+    command = sys.argv[3]
     rpc_urls = get_rpc_url(cluster)
 
     if not rpc_urls:
@@ -42,12 +38,12 @@ def main():
         sys.exit(1)
 
     for url in rpc_urls:
-        validator_address, vote_address = get_addresses(url)
+        address = get_addresses(url, validator_address)
 
         command_script = f"su-{command}.py"
 
         try:
-            output = subprocess.check_output(["python3", command_script, url, validator_address], text=True)
+            output = subprocess.check_output(["python3", command_script, url, address], text=True)
             print(output)
             break
         except subprocess.CalledProcessError:
