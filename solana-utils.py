@@ -27,10 +27,12 @@ def main():
         print("Error: Invalid cluster input. Use 'um' for mainnet or 'ut' for testnet.")
         sys.exit(1)
 
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+
     for url in rpc_urls:
         address = validator_address
 
-        command_script = f"su-{command}.py"
+        command_script = os.path.join(script_dir, f"su-{command}.py")
 
         try:
             output = subprocess.check_output(["python3", command_script, url, address], text=True)
