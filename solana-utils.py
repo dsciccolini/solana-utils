@@ -13,16 +13,6 @@ def get_rpc_url(cluster):
     }
     return rpc_mapping.get(cluster, [])
 
-def get_addresses(url, validator_address):
-    """Retrieve the public addresses from the provided validator address."""
-    try:
-        address = subprocess.check_output(
-            ["solana", "address", "--url", url, "-k", validator_address], text=True).strip()
-        return address
-    except subprocess.CalledProcessError:
-        print("Error: Unable to fetch keypair addresses.")
-        sys.exit(1)
-
 def main():
     if len(sys.argv) < 4:
         print("Usage: python3 solana-utils.py <um|ut> <validator_address> <command>")
@@ -38,7 +28,7 @@ def main():
         sys.exit(1)
 
     for url in rpc_urls:
-        address = get_addresses(url, validator_address)
+        address = validator_address
 
         command_script = f"su-{command}.py"
 
