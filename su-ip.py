@@ -28,12 +28,13 @@ def get_ip_data(url, validator_address):
                 region = details_all.get('region', 'N/A')
                 city = details_all.get('city', 'N/A')
                 country_name = details_all.get('country_name', 'N/A')
-                
+                country_flag = details_all.get('country_flag', {}).get('emoji', '')
+
                 print(f"{'ASN:':<20} {asn}")
                 print(f"{'Organization:':<20} {org}")
                 print(f"{'City:':<20} {city}")
                 print(f"{'Region:':<20} {region}")
-                print(f"{'Country (Code):':<20} {country_name} ({country_code})")
+                print(f"{'Country (Code):':<20} {country_name} ({country_code}) {country_flag}")
                 print(f"{'Location:':<20} {details_all.get('loc', 'N/A')}")
                 va_format_asn = asn[2:] if asn.startswith("AS") else asn
                 print(f"{'VA Format:':<20} {va_format_asn}-{country_code}-{city}")
