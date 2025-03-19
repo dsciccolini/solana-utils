@@ -16,10 +16,13 @@ def get_ip_data(url, validator_address):
             if node.get("identityPubkey") == validator_address:
                 ip_address = node.get('ipAddress', 'N/A')
                 details = handler.getDetails(ip_address)
-                print({details.city})
-                print({details.loc})
                 print(f"\n\033[1;36mTHW-Utils v0 | IP Info | Cluster: {url}\033[0m\n")
                 print(f"{'IP Address:':<15} {ip_address}")
+                print({details.asn: details.asn})
+                name = details.hostname
+                print({details.asn: details.hostname})
+                print({details.asn: name})
+                print(f"Location: {details.loc}")
                 return
 
         print("Validator not found in gossip data.")
