@@ -1,6 +1,10 @@
 import subprocess
 import sys
 import json
+import ipinfo
+
+access_token = '118ed2d59487de'
+handler = ipinfo.getHandler(access_token)
 
 def get_ip_data(url, validator_address):
     """Fetch IP data in JSON format."""
@@ -11,7 +15,10 @@ def get_ip_data(url, validator_address):
         for node in gossip_data:
             if node.get("identityPubkey") == validator_address:
                 ip_address = node.get('ipAddress', 'N/A')
-                print(f"\n\033[1;36mSolana Gossip | Cluster: {url}\033[0m\n")
+                details = handler.getDetails(ip_address)
+                print({details.city})
+                print({details.loc})
+                print(f"\n\033[1;36mTHW-Utils v0 | IP Info | Cluster: {url}\033[0m\n")
                 print(f"{'IP Address:':<15} {ip_address}")
                 return
 
