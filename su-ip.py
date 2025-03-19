@@ -19,7 +19,7 @@ def get_ip_data(url, validator_address):
                 details = handler.getDetails(ip_address)
                 details_all = details.all
                 # pprint.pprint(details_all)  # Debug print to see the structure of details_all
-                print(f"\n\033[1;36mTHW-Utils v0 | IP Info | Cluster: {url}\033[0m\n")
+                print(f"\n\033[1;36mTHW-Tools v0 | IP Info | Cluster: {url}\033[0m\n")
                 print(f"{'IP Address:':<20} {ip_address}")
                 
                 org_info = details_all.get('org', 'N/A')
@@ -28,7 +28,7 @@ def get_ip_data(url, validator_address):
                 region = details_all.get('region', 'N/A')
                 city = details_all.get('city', 'N/A')
                 country_name = details_all.get('country_name', 'N/A')
-                
+
                 print(f"{'ASN:':<20} {asn}")
                 print(f"{'Organization:':<20} {org}")
                 print(f"{'City:':<20} {city}")
