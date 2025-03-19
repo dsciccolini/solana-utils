@@ -11,10 +11,15 @@ def get_ip_data(url, validator_address):
         for node in gossip_data:
             if node.get("identityPubkey") == validator_address:
                 ip_address = node.get('ipAddress', 'N/A')
-                return ip_address
+                print(f"\n\033[1;36mSolana Gossip | Cluster: {url}\033[0m\n")
+                print(f"{'IP Address:':<15} {ip_address}")
+                return
+
         print("Validator not found in gossip data.")
     except subprocess.CalledProcessError:
         print("Error: Failed to fetch IP data.")
+    except json.JSONDecodeError:
+        print("Error: Unable to parse gossip data.")
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:
@@ -23,6 +28,4 @@ if __name__ == "__main__":
 
     url = sys.argv[1]
     validator_address = sys.argv[2]
-    ip_address = get_ip_data(url, validator_address)
-    if ip_address:
-        print(f"IP Address: {ip_address}")
+    get_ip_data(url, validator_address)
