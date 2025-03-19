@@ -20,7 +20,7 @@ def get_ip_data(url, validator_address):
                 details_all = details.all
                 pprint.pprint(details_all)  # Debug print to see the structure of details_all
                 print(f"\n\033[1;36mTHW-Utils v0 | IP Info | Cluster: {url}\033[0m\n")
-                print(f"{'IP Address:':<15} {ip_address}")
+                print(f"{'IP Address:':<20} {ip_address}")
                 
                 org_info = details_all.get('org', 'N/A')
                 asn, org = org_info.split(' ', 1) if ' ' in org_info else ('N/A', org_info)
@@ -35,7 +35,8 @@ def get_ip_data(url, validator_address):
                 print(f"{'Region:':<20} {region}")
                 print(f"{'Country (Code):':<20} {country_name} ({country_code})")
                 print(f"{'Location:':<20} {details_all.get('loc', 'N/A')}")
-                print(f"{'VA Format:':<20} {asn}-{country_code}-{city}")
+                va_format_asn = asn[2:] if asn.startswith("AS") else asn
+                print(f"{'VA Format:':<20} {va_format_asn}-{country_code}-{city}")
                 return
 
         print("Validator not found in gossip data.")
