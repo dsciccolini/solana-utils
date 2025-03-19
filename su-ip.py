@@ -2,6 +2,7 @@ import subprocess
 import sys
 import json
 import ipinfo
+import pprint
 
 access_token = '118ed2d59487de'
 handler = ipinfo.getHandler(access_token)
@@ -17,6 +18,7 @@ def get_ip_data(url, validator_address):
                 ip_address = node.get('ipAddress', 'N/A')
                 details = handler.getDetails(ip_address)
                 details_all = details.all
+                pprint.pprint(details_all)  # Debug print to see the structure of details_all
                 print(f"\n\033[1;36mTHW-Utils v0 | IP Info | Cluster: {url}\033[0m\n")
                 print(f"{'IP Address:':<15} {ip_address}")
                 print(f"{'ASN:':<15} {details_all.get('asn', {}).get('asn', 'N/A')}")
