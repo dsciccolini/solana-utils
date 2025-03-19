@@ -29,13 +29,13 @@ def get_ip_data(url, validator_address):
                 city = details_all.get('city', 'N/A')
                 country_name = details_all.get('country_name', 'N/A')
                 
-                print(f"{'ASN:':<15} {asn}")
-                print(f"{'Organization:':<15} {org}")
-                print(f"{'City:':<15} {city}")
-                print(f"{'Region:':<15} {region}")
-                print(f"{'Country (Code):':<15} {country_name} ({country_code})")
-                print(f"{'Location:':<15} {details_all.get('loc', 'N/A')}")
-                print(f"{'VA Format:':<15} {asn}-{country_code}-{region}")
+                print(f"{'ASN:':<20} {asn}")
+                print(f"{'Organization:':<20} {org}")
+                print(f"{'City:':<20} {city}")
+                print(f"{'Region:':<20} {region}")
+                print(f"{'Country (Code):':<20} {country_name} ({country_code})")
+                print(f"{'Location:':<20} {details_all.get('loc', 'N/A')}")
+                print(f"{'VA Format:':<20} {asn}-{country_code}-{city}")
                 return
 
         print("Validator not found in gossip data.")
