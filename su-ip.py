@@ -18,7 +18,7 @@ def get_ip_data(url, validator_address):
                 ip_address = node.get('ipAddress', 'N/A')
                 details = handler.getDetails(ip_address)
                 details_all = details.all
-                pprint.pprint(details_all)  # Debug print to see the structure of details_all
+                # pprint.pprint(details_all)  # Debug print to see the structure of details_all
                 print(f"\n\033[1;36mTHW-Utils v0 | IP Info | Cluster: {url}\033[0m\n")
                 print(f"{'IP Address:':<20} {ip_address}")
                 
